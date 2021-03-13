@@ -7,7 +7,6 @@ $cookiedata = '';
 error_reporting(0); //Disabled for keeping console clean. Set to 1 if you got an error or problem while downloading :)
 echo "THINKIFIC DOWNLOADER".PHP_EOL."v3 ~ 7th January 2021".PHP_EOL."Author : SumeetWeb ~ https://github.com/sumeetweb".PHP_EOL;
 
-
 if($cookiedata == '' || $clientdate == '') {
     die("Cookie data and Client Date not set. Use the ReadMe file first before using this script.");
 }
@@ -15,7 +14,7 @@ if($cookiedata == '' || $clientdate == '') {
 /*
 
 THINKIFIC DOWNLOADER
-Revision 3 ~ 7th January 2021
+Revision 4
 Author : SumeetWeb ~ https://github.com/sumeetweb
 
 WHAT's NEW :
@@ -23,56 +22,6 @@ Implemented chapterwise downloading in this release
 
 This script only downloads enrolled courses from thinkific based website.
 Script to be used for personal use only. Author is not responsible for anything you do by using the script.
-
-Currently Downloads : 
-		1. Notes 
-		2. Videos
-
-Tested Websites : All Thinkific Based WebSites
-
-Planned : 
-		1. Quiz Downloads
-		  
-USAGE :- 
-
-php thinkidownloader3.php <LINK-HERE>		
-  
-LINK FORMAT :  https://<THINKIFIC-WEBSITE-URL>/api/course_player/v2/courses/<COURSE-NAME/SLUG>
-
-EXAMPLE URLS LIST of a Website ---
-
-https://courses.packtpub.com/api/course_player/v2/courses/python
-
-https://courses.packtpub.com/api/course_player/v2/courses/go
-
-https://courses.packtpub.com/api/course_player/v2/courses/php
-
-https://courses.packtpub.com/api/course_player/v2/courses/java
-
-https://courses.packtpub.com/api/course_player/v2/courses/javascript
-
-https://courses.packtpub.com/api/course_player/v2/courses/sql
-
-https://courses.packtpub.com/api/course_player/v2/courses/data-science
-
-https://courses.packtpub.com/api/course_player/v2/courses/c-plus-plus
-
-https://courses.packtpub.com/api/course_player/v2/courses/clojure
-
-https://courses.packtpub.com/api/course_player/v2/courses/supervised-learning
-
-https://courses.packtpub.com/api/course_player/v2/courses/deep-learning-with-keras
-
-https://courses.packtpub.com/api/course_player/v2/courses/data-visualization
-
-https://courses.packtpub.com/api/course_player/v2/courses/the-applied-sql-data-analytics-workshop
-
-https://courses.packtpub.com/api/course_player/v2/courses/html-css
-
-https://courses.packtpub.com/api/course_player/v2/courses/ruby
-
-COOKIE IS MUST FOR AUTHORISATION, ELSE YOU WILL GET AUTHORISATION ERROR / INTERNAL SERVER ERROR
-:)
 
 */
 
@@ -136,52 +85,52 @@ function unicode_decode($str) {
 function query($url)
 {
 	global $clientdate, $cookiedata;
-    $referer = '';
-    $headers[] = 'Accept-Encoding: gzip, deflate, br';
-    $headers[] = 'Sec-Fetch-Mode: cors';
-    $headers[] = 'Sec-Fetch-Site: cross-site';
-    $headers[] = 'x-requested-with: XMLHttpRequest';
+    	$referer = '';
+    	$headers[] = 'Accept-Encoding: gzip, deflate, br';
+    	$headers[] = 'Sec-Fetch-Mode: cors';
+    	$headers[] = 'Sec-Fetch-Site: cross-site';
+    	$headers[] = 'x-requested-with: XMLHttpRequest';
 	$headers[] = 'x-thinkific-client-date: '.$clientdate;
-    $headers[] = 'cookie: '.$cookiedata;	
+    	$headers[] = 'cookie: '.$cookiedata;	
 	$useragent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36';
-    $process = curl_init($url);
-    curl_setopt($process, CURLOPT_POST, 0);
-    curl_setopt($process, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($process, CURLOPT_HEADER, 0);
-    curl_setopt($process, CURLOPT_USERAGENT, $useragent);
-    curl_setopt($process, CURLOPT_ENCODING, 'gzip,deflate,br');
-    curl_setopt($process, CURLOPT_REFERER, $referer);
-    curl_setopt($process, CURLOPT_TIMEOUT, 60);
-    curl_setopt($process, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($process, CURLOPT_FOLLOWLOCATION, 1);
-    $return = curl_exec($process);
-    curl_close($process);
-    return $return;
+    	$process = curl_init($url);
+    	curl_setopt($process, CURLOPT_POST, 0);
+    	curl_setopt($process, CURLOPT_HTTPHEADER, $headers);
+    	curl_setopt($process, CURLOPT_HEADER, 0);
+    	curl_setopt($process, CURLOPT_USERAGENT, $useragent);
+    	curl_setopt($process, CURLOPT_ENCODING, 'gzip,deflate,br');
+    	curl_setopt($process, CURLOPT_REFERER, $referer);
+    	curl_setopt($process, CURLOPT_TIMEOUT, 60);
+    	curl_setopt($process, CURLOPT_RETURNTRANSFER, 1);
+    	curl_setopt($process, CURLOPT_FOLLOWLOCATION, 1);
+    	$return = curl_exec($process);
+    	curl_close($process);
+    	return $return;
 }
 
 function fdownload($url)
 {
 	global $clientdate, $cookiedata;
 	$referer = '';
-    $headers[] = 'Accept-Encoding: gzip, deflate, br';
-    $headers[] = 'Sec-Fetch-Mode: cors';
-    $headers[] = 'Sec-Fetch-Site: same-origin';
-    $headers[] = 'x-requested-with: XMLHttpRequest';
+    	$headers[] = 'Accept-Encoding: gzip, deflate, br';
+    	$headers[] = 'Sec-Fetch-Mode: cors';
+    	$headers[] = 'Sec-Fetch-Site: same-origin';
+    	$headers[] = 'x-requested-with: XMLHttpRequest';
 	$headers[] = 'x-thinkific-client-date: '.$clientdate;
-    $headers[] = 'cookie: '.$cookiedata;
+    	$headers[] = 'cookie: '.$cookiedata;
 	$useragent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36';
-    $process = curl_init($url);
-    curl_setopt($process, CURLOPT_POST, 0);
-    curl_setopt($process, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($process, CURLOPT_HEADER, 1);
-    curl_setopt($process, CURLOPT_USERAGENT, $useragent);
-    curl_setopt($process, CURLOPT_ENCODING, 'gzip,deflate,br');
-    curl_setopt($process, CURLOPT_REFERER, $referer);
-    curl_setopt($process, CURLOPT_TIMEOUT, 60);
-    curl_setopt($process, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($process, CURLOPT_FOLLOWLOCATION, 0);
-    $return = curl_exec($process);
-    curl_close($process);
+	$process = curl_init($url);
+    	curl_setopt($process, CURLOPT_POST, 0);
+    	curl_setopt($process, CURLOPT_HTTPHEADER, $headers);
+    	curl_setopt($process, CURLOPT_HEADER, 1);
+    	curl_setopt($process, CURLOPT_USERAGENT, $useragent);
+    	curl_setopt($process, CURLOPT_ENCODING, 'gzip,deflate,br');
+    	curl_setopt($process, CURLOPT_REFERER, $referer);
+    	curl_setopt($process, CURLOPT_TIMEOUT, 60);
+    	curl_setopt($process, CURLOPT_RETURNTRANSFER, 1);
+    	curl_setopt($process, CURLOPT_FOLLOWLOCATION, 0);
+    	$return = curl_exec($process);
+    	curl_close($process);
 	
 	$headers = [];
 	$output = rtrim($return);
@@ -197,9 +146,9 @@ function fdownload($url)
 	$path = parse_url($durl);
 	$p = explode("/", $path["path"]);
 	$fname = end($p);
-    $fname = filter_filename($fname);
+	$fname = filter_filename($fname);
 	$downloadedFileContents = file_get_contents($durl);
-    file_put_contents($fname, $downloadedFileContents);
+	file_put_contents($fname, $downloadedFileContents);
 }
 
 function init_course($datas) {
@@ -236,7 +185,8 @@ function chapterwise_download($datas) {
     foreach($datas as $data) {
         foreach($contentsdata as $content) {
             if($content["id"] == $data) {
-                if($content["contentable_type"] == "HtmlItem" && $content["display_name"] == "Text") //For Downloading Notes which are in HTML Unicode Format
+				
+                if($content["contentable_type"] == "HtmlItem" && $content["default_lesson_type_icon"] == "text") //For Downloading Notes which are in HTML Unicode Format
 		        {
                     $dc = $index.'. '.$content["name"].' Text';
                     $dc = filter_filename($dc);
@@ -256,7 +206,7 @@ function chapterwise_download($datas) {
                     chdir($prev_dir);
                 }
 
-                if($content["contentable_type"] == "Lesson" && $content["display_name"] == "Video") // To download videos
+                if($content["contentable_type"] == "Lesson" && $content["default_lesson_type_icon"] == "video") // To download videos
                 {
                     $dc = $index.'. '.$content["name"].' Video';
                     $dc = filter_filename($dc);
@@ -287,6 +237,32 @@ function chapterwise_download($datas) {
                         chdir($prev_dir);
                     }
                 }
+
+		if($content["contentable_type"] == "Quiz" && $content["default_lesson_type_icon"] == "quiz") // Download Quiz Questions with Answers
+                {
+			
+                }
+
+                if($content["contentable_type"] == "Assignment" && $content["default_lesson_type_icon"] == "assignment") // Download assignment
+                {
+
+                }
+
+                if($content["contentable_type"] == "Pdf" && $content["default_lesson_type_icon"] == "pdf") // Download PDF
+                {
+
+                }
+                
+                if($content["contentable_type"] == "Download" && $content["default_lesson_type_icon"] == "download") // Download shared files
+                {
+
+                }
+
+                if($content["contentable_type"] == "Survey" && $content["default_lesson_type_icon"] == "survey") // Download Survey page
+                {
+
+                }
+
                 $index++;
             }
         }
